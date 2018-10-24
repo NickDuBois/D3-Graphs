@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './LineGraph.css';
+import './MultiLineGraph.css';
 import * as d3 from "d3";
 
 
-export default class LineGraph extends Component {
+export default class MultiLineGraph extends Component {
 
     componentDidMount() {
 
@@ -193,16 +193,17 @@ export default class LineGraph extends Component {
             })
         ;
 
+        console.log("Ready to create multi line graph with data : ", data);
 
         /**
             We now have everything setup and ready.  Lets send the data to a path, and use the
             above created line path function to plot the points!
          */
         aPlottedLineGroup.selectAll("path") // Remember, selectAll doesn't always return any elements, it's like doing "new".
-            .data([data])
+            .data(data)
             .enter()
                 .append("path")
-                    .attr("d", line)
+                    .attr("d", d => line(d))
                     .attr("fill", "none")
                     .attr("stroke", "black")
                     .attr("stroke-width", 1)
